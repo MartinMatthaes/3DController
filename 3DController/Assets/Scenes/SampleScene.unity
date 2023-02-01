@@ -258,6 +258,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d1517788-7e1b-468c-916d-78355f84d27f
     m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 93478544}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnSprintStart
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 27a64c04-5298-46bf-b1ef-57ce941eb223
+    m_ActionName: Player/SprintStart[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 93478544}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnSprintRelease
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6c2942c4-4fb4-4a41-be1c-028e5cd1814b
+    m_ActionName: Player/SprintFinish[/Keyboard/shift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -278,9 +310,12 @@ MonoBehaviour:
   rb: {fileID: 93478545}
   camHolder: {fileID: 1945719972}
   speed: 4
+  sprintSpeedMultiplier: 7
   sensitivity: 0.1
   maxForce: 1
   jumpForce: 3
+  isGrounded: 0
+  isSprinting: 0
 --- !u!54 &93478545
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -331,7 +366,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d97b59ac0fbd1254cb5e45695d2c9aa2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -866,7 +901,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2df8885b99dfb4545a41bb0368ab8571, type: 2}
+  - {fileID: 2100000, guid: c7f8398b402ac384e9b10cd813438060, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

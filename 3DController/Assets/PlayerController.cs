@@ -7,10 +7,26 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody rb;
     public GameObject camHolder;
-    public float speed, sensitivity, maxForce, jumpForce;
+    public float speed = 4;
+    public float sprintSpeedMultiplier = 7;
+    public float sensitivity = 0.1f;
+    public float maxForce = 1;
+    public float jumpForce = 3;
+
     private Vector2 move, look;
-    private float lookRotation;
-    private bool isGrounded = false;
+    private float lookRotation = 0;
+
+    public bool isGrounded = false;
+    public bool isSprinting = false;
+    public bool IsSprinting
+    {
+        get { return isSprinting; }
+        set
+        {
+            isSprinting = value;
+            Debug.Log(value);
+        }
+    }
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -20,6 +36,18 @@ public class PlayerController : MonoBehaviour
     public void OnLook(InputAction.CallbackContext context)
     {
         look = context.ReadValue<Vector2>();
+    }
+
+    public void OnSprintStart(InputAction.CallbackContext context)
+    {
+        //Debug.Log("Test");
+        IsSprinting = true;
+    }
+
+    public void OnSprintRelease(InputAction.CallbackContext context)
+    {
+        context.canceled
+        IsSprinting = false;
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -44,18 +72,36 @@ public class PlayerController : MonoBehaviour
     }
     private void Move()
     {
-        Vector3 currentVelocity = rb.velocity;
-        Vector3 targetVelocity = new Vector3(move.x, 0, move.y);
-        targetVelocity *= speed;
+        if (IsSprinting)
+        {
+            Vector3 currentVelocity = rb.velocity;
+            Vector3 targetVelocity = new Vector3(move.x, 0, move.y);
+            targetVelocity *= (speed * sprintSpeedMultiplier);
 
-        targetVelocity = transform.TransformDirection(targetVelocity);
+            targetVelocity = transform.TransformDirection(targetVelocity);
 
-        Vector3 velocityChange = (targetVelocity - currentVelocity);
-        velocityChange = new Vector3(velocityChange.x, 0, velocityChange.z);
+            Vector3 velocityChange = (targetVelocity - currentVelocity);
+            velocityChange = new Vector3(velocityChange.x, 0, velocityChange.z);
 
-        Vector3.ClampMagnitude(velocityChange, maxForce);
+            Vector3.ClampMagnitude(velocityChange, maxForce);
 
-        rb.AddForce(velocityChange, ForceMode.VelocityChange);
+            rb.AddForce(velocityChange, ForceMode.VelocityChange);
+        } 
+        else
+        {
+            Vector3 currentVelocity = rb.velocity;
+            Vector3 targetVelocity = new Vector3(move.x, 0, move.y);
+            targetVelocity *= speed;
+
+            targetVelocity = transform.TransformDirection(targetVelocity);
+
+            Vector3 velocityChange = (targetVelocity - currentVelocity);
+            velocityChange = new Vector3(velocityChange.x, 0, velocityChange.z);
+
+            Vector3.ClampMagnitude(velocityChange, maxForce);
+
+            rb.AddForce(velocityChange, ForceMode.VelocityChange);
+        }
     }
 
     private void Look()
